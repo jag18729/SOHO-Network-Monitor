@@ -5,7 +5,12 @@
       "Bash(./setup_project.sh:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(docker:*)",
+      "Bash(ss:*)",
+      "Bash(sudo:*)",
+      "Bash(./install_docker.sh)",
+      "Bash(openssl rand:*)"
     ],
     "deny": []
   }
