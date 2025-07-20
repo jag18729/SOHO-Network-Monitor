@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vandine.us - Cloudflare Tunnel Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-card h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-card p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .architecture-diagram {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .flow-item {
+            background: #667eea;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .flow-arrow {
+            color: #667eea;
+            font-size: 2rem;
+            margin: 0 0.5rem;
+        }
+
+        .server-info {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .server-info h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 0.5rem;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .benefit-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefit-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .benefit-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .performance-meter {
+            background: #f0f0f0;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .performance-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50 0%, #8bc34a 100%);
+            border-radius: 15px;
+            position: relative;
+            animation: fillAnimation 2s ease-out;
+        }
+
+        @keyframes fillAnimation {
+            from { width: 0; }
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .tech-badge {
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #4caf50;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .live-status {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .live-status h3 {
+            color: #4caf50;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .flow-diagram {
+                flex-direction: column;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>vandine.us</h1>
+            <p>Powered by Cloudflare Tunnel & Raspberry Pi</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <div class="live-status">
+                <h3><span class="status-indicator"></span>Live Connection Status</h3>
+                <p>This page is being served through a secure Cloudflare Tunnel directly from a Raspberry Pi in a home network!</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔗 How This Connection Works</h2>
+            <div class="architecture-diagram">
+                <div class="flow-diagram">
+                    <div class="flow-item">Your Browser</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-item">Cloudflare Edge</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-item">Secure Tunnel</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-item">Raspberry Pi</div>
+                </div>
+                <p style="margin-top: 2rem; color: #666;">
+                    No port forwarding • No exposed IP • End-to-end encryption
+                </p>
+            </div>
+
+            <div class="code-block">
+# Tunnel Configuration
+tunnel: 153cc7a6-9ab5-4172-b4cc-eb21e5b524cd
+ingress:
+  - hostname: vandine.us
+    service: http://localhost:80
+  - hostname: www.vandine.us
+    service: http://localhost:80
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Live Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>4</h3>
+                    <p>Active Tunnel Connections</p>
+                </div>
+                <div class="metric-card">
+                    <h3>LAX</h3>
+                    <p>Cloudflare Edge Location</p>
+                </div>
+                <div class="metric-card">
+                    <h3>< 50ms</h3>
+                    <p>Typical Latency</p>
+                </div>
+                <div class="metric-card">
+                    <h3>100%</h3>
+                    <p>Uptime</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🖥️ Server Infrastructure</h2>
+            <div class="server-info">
+                <h3>Primary Web Server (pi1)</h3>
+                <div class="info-grid">
+                    <div class="info-label">Hostname:</div>
+                    <div>pi1.matrix.in</div>
+                    <div class="info-label">IP Address:</div>
+                    <div>192.168.2.7</div>
+                    <div class="info-label">OS:</div>
+                    <div>Debian GNU/Linux (Bookworm)</div>
+                    <div class="info-label">Services:</div>
+                    <div>Nginx, Cloudflared, NFS, iPerf3</div>
+                    <div class="info-label">Tunnel ID:</div>
+                    <div>153cc7a6-9ab5-4172-b4cc-eb21e5b524cd</div>
+                </div>
+            </div>
+
+            <div class="server-info">
+                <h3>Monitoring Server (pi0)</h3>
+                <div class="info-grid">
+                    <div class="info-label">Hostname:</div>
+                    <div>pi0</div>
+                    <div class="info-label">IP Address:</div>
+                    <div>192.168.2.10</div>
+                    <div class="info-label">OS:</div>
+                    <div>Ubuntu 25.04</div>
+                    <div class="info-label">Services:</div>
+                    <div>Syslog Server, iPerf3, HTTP Server</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚀 Performance Benefits</h2>
+            <div style="margin: 2rem 0;">
+                <h4>Page Load Speed</h4>
+                <div class="performance-meter">
+                    <div class="performance-fill" style="width: 95%;"></div>
+                </div>
+                <p style="color: #666; font-size: 0.9rem;">Cloudflare caching and optimization</p>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <h4>Security Score</h4>
+                <div class="performance-meter">
+                    <div class="performance-fill" style="width: 100%;"></div>
+                </div>
+                <p style="color: #666; font-size: 0.9rem;">DDoS protection, WAF, and SSL/TLS</p>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <h4>Network Efficiency</h4>
+                <div class="performance-meter">
+                    <div class="performance-fill" style="width: 90%;"></div>
+                </div>
+                <p style="color: #666; font-size: 0.9rem;">Direct tunnel connection, no NAT traversal</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>✅ Key Benefits of This Setup</h2>
+            <ul class="benefit-list">
+                <li><strong>No Port Forwarding:</strong> The tunnel initiates outbound connections only</li>
+                <li><strong>Hidden Origin IP:</strong> Your home IP address remains completely private</li>
+                <li><strong>Automatic SSL/TLS:</strong> Cloudflare handles all certificate management</li>
+                <li><strong>DDoS Protection:</strong> Built-in protection from Cloudflare's network</li>
+                <li><strong>Global CDN:</strong> Content cached at 300+ edge locations worldwide</li>
+                <li><strong>Zero Downtime Updates:</strong> Multiple tunnel connections ensure reliability</li>
+                <li><strong>Cost Effective:</strong> Running on low-power Raspberry Pi hardware</li>
+                <li><strong>Scalable:</strong> Easy to add more services or servers</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🛠️ Technology Stack</h2>
+            <div class="tech-stack">
+                <span class="tech-badge">Cloudflare Tunnel</span>
+                <span class="tech-badge">Nginx</span>
+                <span class="tech-badge">Raspberry Pi</span>
+                <span class="tech-badge">Debian/Ubuntu</span>
+                <span class="tech-badge">Systemd</span>
+                <span class="tech-badge">HTML5/CSS3</span>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Network Path</h3>
+            <div class="code-block">
+Client → Cloudflare Edge (Anycast) → Tunnel (QUIC Protocol) → 
+Home Router (No ports open) → Raspberry Pi → Nginx → This Page
+
+Edge Locations Connected:
+- LAX05 (Los Angeles)
+- LAX06 (Los Angeles)
+- LAX07 (Los Angeles)
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📈 Real-time Monitoring</h2>
+            <p>The infrastructure includes comprehensive monitoring:</p>
+            <ul style="margin: 1rem 0; padding-left: 2rem;">
+                <li>Centralized syslog collection on pi0</li>
+                <li>Network performance testing with iPerf3</li>
+                <li>Tunnel metrics via cloudflared</li>
+                <li>Service health monitoring with systemd</li>
+            </ul>
+
+            <div class="code-block">
+# Check tunnel status
+systemctl status cloudflared
+
+# View tunnel metrics
+curl http://localhost:20241/metrics
+
+# Monitor logs
+journalctl -u cloudflared -f
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 vandine.us • Hosted on Raspberry Pi with ❤️</p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">Tunnel Active Since: July 19, 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate metric cards on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '0';
+                        entry.target.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            entry.target.style.transition = 'all 0.5s ease';
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, 100);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.metric-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Add timestamp
+            const now = new Date();
+            console.log(`Page loaded at: ${now.toISOString()}`);
+            console.log('Served via Cloudflare Tunnel from Raspberry Pi');
+        });
+    </script>
+</body>
+</html>
